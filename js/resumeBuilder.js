@@ -2,6 +2,7 @@
 This is empty on purpose! Your code to build the resume will go here.
  */
 
+//all the JavaScript objects
 var bio = {
     "name" : "Sweta Kumari",
     "role" : "Front-End Web Developer",
@@ -11,11 +12,32 @@ var bio = {
         "github" : "https://github.com/swetakumari95",
         "location" : "Bangalore, India"
     },
-    "welcomeMessage" : "Hey, everyone!",
+    "welcomeMessage" : "Hey! I am currently a student and am interested in Web Development.",
     "skills" : ["HTML", "CSS", "JavaScript", "C", "Python"],
     "biopic" : "https://avatars0.githubusercontent.com/u/25175698?v=3&s=400",
     "display" : function(){
 
+        //adding elements from bio object
+        var formattedName = HTMLheaderName.replace("%data%",bio.name);
+        var formattedRole = HTMLheaderRole.replace("%data%",bio.role);
+        $("#header").prepend(formattedRole);
+        $("#header").prepend(formattedName);
+
+        //adding contact information from bio
+        $("#topContacts").append(HTMLmobile.replace("%data%",bio.contacts.mobile));
+        $("#topContacts").append(HTMLemail.replace("%data%",bio.contacts.email));
+        $("#topContacts").append(HTMLgithub.replace("%data%",bio.contacts.github));
+        $("#topContacts").append(HTMLlocation.replace("%data%",bio.contacts.location));
+
+        $("#header").append(HTMLbioPic.replace("%data%",bio.biopic));
+        $("#header").append(HTMLwelcomeMsg.replace("%data%",bio.welcomeMessage));
+
+        if (bio.skills.length != 0){
+	        $("#header").append(HTMLskillsStart);
+	        bio.skills.forEach(function(item){
+		        $("#skills").append(HTMLskills.replace("%data%",item));
+	        });
+        }
     }
 };
 
@@ -48,7 +70,23 @@ var education = {
         "url" : "https://www.codecademy.com/learn"
     }],
     "display" : function(){
+        education.schools.forEach(function(school){
+            $("#education").append(HTMLschoolStart);
+            $(".education-entry:last").append(HTMLschoolName.replace("%data%",school.name)+HTMLschoolDegree.replace("%data%",school.degree));
+            $(".education-entry:last").append(HTMLschoolDates.replace("%data%",school.dates));
+            $(".education-entry:last").append(HTMLschoolLocation.replace("%data%",school.location));
+            school.majors.forEach(function(major){
+                $(".education-entry:last").append(HTMLschoolMajor.replace("%data%",major));
+            });
+        });
 
+        $("#education").append(HTMLonlineClasses);
+        education.onlineCourses.forEach(function(course){
+            $("#education").append(HTMLschoolStart);
+            $(".education-entry:last").append(HTMLonlineTitle.replace("%data%",course.title)+HTMLonlineSchool.replace("%data%",course.school));
+            $(".education-entry:last").append(HTMLonlineDates.replace("%data%",course.dates));
+            $(".education-entry:last").append(HTMLonlineURL.replace("%data%",course.url));
+        });
     }
 };
 
@@ -61,7 +99,13 @@ var work = {
         "description" : "Making a website for the NGO from scratch"
     }],
     "display" : function(){
-
+        work.jobs.forEach(function(job){
+    		$("#workExperience").append(HTMLworkStart);
+    		$(".work-entry:last").append(HTMLworkEmployer.replace("%data%",job.employer)+HTMLworkTitle.replace("%data%",job.title));
+    		$(".work-entry:last").append(HTMLworkLocation.replace("%data%",job.location));
+    		$(".work-entry:last").append(HTMLworkDates.replace("%data%",job.dates));
+    		$(".work-entry:last").append(HTMLworkDescription.replace("%data%",job.description));
+        });
     }
 };
 
@@ -80,9 +124,20 @@ var projects = {
         "title" : "Portfolio",
         "dates" : "March,2017",
         "description" : "Portfolio website",
-        "images" : ["portfolio.png"]
+        "images" : ["images/portfolio.png"]
     }],
     "display" : function(){
-
+        projects.projects.forEach(function(proj){
+            $("#projects").append(HTMLprojectStart);
+		$(".project-entry:last").append(HTMLprojectTitle.replace("%data%",proj.title));
+		$(".project-entry:last").append(HTMLprojectDates.replace("%data%",proj.dates));
+		$(".project-entry:last").append(HTMLprojectDescription.replace("%data%",proj.description));
+		$(".project-entry:last").append(HTMLprojectImage.replace("%data%",proj.images[0]));
+        });
     }
 };
+
+bio.display();
+work.display();
+projects.display();
+education.display();
