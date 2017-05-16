@@ -31,7 +31,7 @@ var bio = {
         $("#header").append(HTMLbioPic.replace("%data%", bio.biopic));
         $("#header").append(HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage));
 
-        if (bio.skills.length != 0) {
+        if (bio.skills.length !== 0) {
             $("#header").append(HTMLskillsStart);
             bio.skills.forEach(function(item) {
                 $("#skills").append(HTMLskills.replace("%data%", item));
