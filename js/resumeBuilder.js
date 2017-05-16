@@ -23,16 +23,10 @@ var bio = {
         $("#header").prepend(formattedName);
 
         //adding contact information from bio
-        $("#topContacts").append(HTMLmobile.replace("%data%", bio.contacts.mobile));
-        $("#topContacts").append(HTMLemail.replace("%data%", bio.contacts.email));
-        $("#topContacts").append(HTMLgithub.replace("%data%", bio.contacts.github));
-        $("#topContacts").append(HTMLlocation.replace("%data%", bio.contacts.location));
-
-        //adding the same to the footer
-        $("#footerContacts").append(HTMLmobile.replace("%data%", bio.contacts.mobile));
-        $("#footerContacts").append(HTMLemail.replace("%data%", bio.contacts.email));
-        $("#footerContacts").append(HTMLgithub.replace("%data%", bio.contacts.github));
-        $("#footerContacts").append(HTMLlocation.replace("%data%", bio.contacts.location));
+        $("#topContacts, #footerContacts").append(HTMLmobile.replace("%data%", bio.contacts.mobile));
+        $("#topContacts, #footerContacts").append(HTMLemail.replace("%data%", bio.contacts.email));
+        $("#topContacts, #footerContacts").append(HTMLgithub.replace("%data%", bio.contacts.github));
+        $("#topContacts, #footerContacts").append(HTMLlocation.replace("%data%", bio.contacts.location));
 
         $("#header").append(HTMLbioPic.replace("%data%", bio.biopic));
         $("#header").append(HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage));
@@ -140,7 +134,9 @@ var projects = {
             $(".project-entry:last").append(HTMLprojectTitle.replace("%data%", proj.title));
             $(".project-entry:last").append(HTMLprojectDates.replace("%data%", proj.dates));
             $(".project-entry:last").append(HTMLprojectDescription.replace("%data%", proj.description));
-            $(".project-entry:last").append(HTMLprojectImage.replace("%data%", proj.images[0]));
+            proj.images.forEach(function(image) {
+                $(".project-entry:last").append(HTMLprojectImage.replace("%data%", image));
+            });
             $(".project-entry:last").append("<hr>");
         });
     }
